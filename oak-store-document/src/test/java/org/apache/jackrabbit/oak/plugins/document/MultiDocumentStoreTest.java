@@ -416,7 +416,9 @@ public class MultiDocumentStoreTest extends AbstractMultiDocumentStoreTest {
                 ds.createOrUpdate(NODES, ops);
 
                 assertTrue(logCustomizer.getLogs().size() == 1);
-                assertTrue(logCustomizer.getLogs().get(0).contains("failure for [" + modifiedRow + ", " + deletedRow + "]"));
+                Boolean compareOne = logCustomizer.getLogs().get(0).contains("failure for [" + modifiedRow + ", " + deletedRow + "]");
+                Boolean compareTwo = logCustomizer.getLogs().get(0).contains("failure for [" + deletedRow + ", " + modifiedRow + "]");
+                assertTrue(compareOne || compareTwo);
                 // System.out.println(logCustomizer.getLogs());
                 assertTrue(logCustomizerJDBC.getLogs().size() == 1);
                 assertTrue(logCustomizerJDBC.getLogs().get(0).contains("0 (for " + modifiedRow + " (1)"));
